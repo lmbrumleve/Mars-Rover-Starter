@@ -7,13 +7,13 @@ describe("Command class", function() {
   });
 
   it("constructor sets command type", function() {
-    let testClass = new Command("a", "b");
-      expect(testClass.commandType).toBe("a");
+    let testCommandClass = new Command("a", "b");
+      expect(testCommandClass.commandType).toBe("a");
     });
 
     it("constructor sets value", function() {
-      let testClass = new Command("a", "b");
-        expect(testClass.value).toBe("b");
+      let testCommandClass = new Command("a", "b");
+        expect(testCommandClass.value).toBe("b");
       });
 
 });
