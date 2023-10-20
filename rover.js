@@ -16,9 +16,9 @@ class Rover {
             completed: true
          }
          if (message.commands[i].commandType === "MODE_CHANGE") {
-            if (message.commands[i].value === "NORMAL") {
+            if (message.commands[i].value === "NORMAL" || message.commands[i].value === "LOW_POWER") {
                this["mode"] = message.commands[i].value;
-            } else if (message.commands[i].value === "LOW_POWER") {
+            } else {
                this["mode"] = message.commands[i].value;
                completeObject["completed"] = false;
              }
@@ -74,6 +74,19 @@ class Rover {
 
 // console.log(testRover.mode)
 // console.log(testCommand[0].value)
+
+    let rover = new Rover(100);
+    let commands = [
+       new Command('MOVE', 4321),
+       new Command('STATUS_CHECK'),
+       new Command('MODE_CHANGE', 'LOW_POWER'),
+       new Command('MOVE', 3579),
+       new Command('STATUS_CHECK')
+    ];
+    let message = new Message('TA power', commands);
+    let response = rover.receiveMessage(message);
+
+    console.log(response.results)
 
 
 module.exports = Rover;

@@ -68,7 +68,7 @@ describe("Rover class", function() {
 
     testRover.receiveMessage(testMessage);
 
-    expect(checkReceiveMessage.results[0].completed).toBe(false);
+    expect(checkReceiveMessage.results[1].completed).toBe(false);
     expect(testRover.position).toBe(98382);
 
   })
