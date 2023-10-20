@@ -15,7 +15,7 @@ describe("Message class", function() {
         expect(testMessageClass.name).toBe("a");
       })
 
-      it("contains a commands array passed into the constructor as the 2nd argument", function () {
+    it("contains a commands array passed into the constructor as the 2nd argument", function () {
         let testMessageClass = new Message("a", ["b"]);
         let messageArr = testMessageClass.commands;
         expect(messageArr).toBe["b"];
