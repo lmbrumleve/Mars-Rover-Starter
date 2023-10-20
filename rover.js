@@ -55,7 +55,8 @@ class Rover {
 
 };
 
-let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command("MOVE", 3), new Command('STATUS_CHECK')]
+let commands = [new Command("MOVE", 3)];
+// let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command("MOVE", 3), new Command('STATUS_CHECK')];
 // let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
 let messageForRover = new Message('Test message with two commands', commands);
 let rover = new Rover(98382);    // Passes 98382 as the rover's position.
@@ -64,7 +65,7 @@ let response = rover.receiveMessage(messageForRover);
 console.log(response);
 console.log(response.results[0])
 console.log(rover);
-console.log(typeof response.results[1].roverStatus);
+// console.log(typeof response.results[1].roverStatus);
 
 // let testCommand = [new Command('MODE_CHANGE', "LOW_POWER")];
 // let testMessage = new Message("Mode changes", testCommand);

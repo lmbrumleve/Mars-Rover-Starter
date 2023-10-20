@@ -59,4 +59,20 @@ describe("Rover class", function() {
 
   })
 
+  it("responds with the position for the move command", function () {
+    let testCommand = [new Command('MOVE', 3)];
+    let testMessage = new Message("Mode changes", testCommand);
+    let testRover = new Rover(98382);
+    let checkReceiveMessage = testRover.receiveMessage(testMessage)
+    let completeObject = {
+      completed: true
+   }
+
+    testRover.receiveMessage(testMessage);
+
+    expect(checkReceiveMessage.results[0].completed).toBe(true);
+    expect(testRover.position).toBe(testCommand[0].value);
+
+  })
+
 });
