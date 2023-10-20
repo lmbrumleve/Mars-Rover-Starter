@@ -1,3 +1,6 @@
+const Command = require('./command.js');
+
+
 class Message {
    constructor(name, commands) {
       this.name = name;
@@ -7,5 +10,6 @@ class Message {
       this.commands = commands
    }
 }
+
 
 module.exports = Message;

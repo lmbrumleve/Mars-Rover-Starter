@@ -16,8 +16,10 @@ describe("Message class", function() {
       })
 
       it("contains a commands array passed into the constructor as the 2nd argument", function () {
-        let testMessageClass = new Message("a", "b");
-        expect(testMessageClass.commands).toBe("b");
+        let testMessageClass = new Message("a", ["b"]);
+        let messageArr = testMessageClass.commands;
+        expect(messageArr).toBe["b"];
+        expect(Array.isArray(messageArr)).toBe(true);
       })
 
     });
