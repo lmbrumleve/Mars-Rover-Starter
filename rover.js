@@ -8,7 +8,10 @@ class Rover {
       this.generatorWatts = generatorWatts;
    }
 
-   receiveMessage(message) {//message is a Message(name, commands) Object
+   receiveMessage(message) {
+      //message is a Message(name, commands) object. 
+      //commands is a Command(commandType, value) object.
+      
       let results = [];
 
       for (let i=0; i < message.commands.length; i++) {
@@ -55,38 +58,63 @@ class Rover {
 
 };
 
-// let commands = [new Command("MOVE", 3)];
-// let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command("MOVE", 3), new Command('STATUS_CHECK')];
-// let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
-// let messageForRover = new Message('Test message with two commands', commands);
-// let rover = new Rover(98382);    // Passes 98382 as the rover's position.
+//Code Review 
+let rover = new Rover(100);    // Passes 100 as the rover's position.
+
+//Check initial rover status.
+// let commands = [new Command("STATUS_CHECK")];
+// let messageForRover = new Message('Check rover status.', commands);
 // let response = rover.receiveMessage(messageForRover);
 
 // console.log(response);
-// console.log(response.results[0])
-// console.log(rover);
-// console.log(typeof response.results[1].roverStatus);
+// console.log(response.results);
 
-// let testCommand = [new Command('MODE_CHANGE', "LOW_POWER")];
-// let testMessage = new Message("Mode changes", testCommand);
-// let testRover = new Rover(98382);
-// console.log(testRover.receiveMessage(testMessage));
+//Move rover, check status again.
+// let commands = [
+//    new Command ("MOVE", 200), 
+//    new Command ("STATUS_CHECK")
+// ];
+// let messageForRover = new Message('Move rover then check status.', commands);
+// let response = rover.receiveMessage(messageForRover);
 
-// console.log(testRover.mode)
-// console.log(testCommand[0].value)
+// console.log(response.results);
 
-    let rover = new Rover(100);
-    let commands = [
-       new Command('MOVE', 4321),
-       new Command('STATUS_CHECK'),
-       new Command('MODE_CHANGE', 'LOW_POWER'),
-       new Command('MOVE', 3579),
-       new Command('STATUS_CHECK')
-    ];
-    let message = new Message('TA power', commands);
-    let response = rover.receiveMessage(message);
+//Change mode to low power, check status.
+// let commands = [
+//    new Command('MODE_CHANGE', 'LOW_POWER'), 
+//    new Command('STATUS_CHECK')
+// ];
+// let messageForRover = new Message('Mode change to low power, check status.', commands);
+// let response = rover.receiveMessage(messageForRover);
 
-    console.log(response.results)
+// console.log(response.results);
 
+//Change mode to low power, move rover, check status. 
+//Change mode to normal, move rover, check status.
+// let commands = [
+//    new Command('MODE_CHANGE', 'LOW_POWER'), 
+//    new Command("MOVE", 200), 
+//    new Command('STATUS_CHECK'),
+//    new Command('MODE_CHANGE', 'NORMAL'), 
+//    new Command("MOVE", 200), 
+//    new Command('STATUS_CHECK')];
+// let messageForRover = new Message('Mode change to low power, move rover, check status. Change mode to normal, move rover, check status.', commands);
+// let response = rover.receiveMessage(messageForRover);
+
+// console.log(response.results);
+
+// Student grader test case.
+// Move rover, status check. Mode change to low power, move rover, status check.
+   //  let commands = [
+   //     new Command('MOVE', 4321),
+   //     new Command('STATUS_CHECK'),
+   //     new Command('MODE_CHANGE', 'LOW_POWER'),
+   //     new Command('MOVE', 3579),
+   //     new Command('STATUS_CHECK')
+   //  ];
+   //  let message = new Message('TA power', commands);
+   //  let response = rover.receiveMessage(message);
+
+   //  console.log(response.results)
 
 module.exports = Rover;

@@ -13,7 +13,7 @@ describe("Rover class", function() {
   })
 
   it("response returned by receiveMessage contains the name of the message", function() {
-    let testCommand = [new Command('MODE_CHANGE', "LOW_POWER")]
+    let testCommand = [new Command('STATUS_CHECK')];
     let testMessage = new Message("Check the rover status", testCommand);
     let testRover = new Rover(98382);
     let checkReceiveMessage = testRover.receiveMessage(testMessage);
@@ -22,7 +22,7 @@ describe("Rover class", function() {
 
   it("response returned by receiveMessage includes two results if two commands are sent in the message", function () {
     let testCommand = [new Command('MODE_CHANGE', "LOW_POWER"), new Command('STATUS_CHECK')];
-    let testMessage = new Message("Check the rover status", testCommand);
+    let testMessage = new Message("Change mode to low power, check status", testCommand);
     let testRover = new Rover(98382);
     let checkReceiveMessage = testRover.receiveMessage(testMessage);
     expect(checkReceiveMessage["results"].length).toBe(testCommand.length);
@@ -43,13 +43,9 @@ describe("Rover class", function() {
   })
 
   it("responds correctly to the mode change command", function () {
-    let testCommand = [new Command('MODE_CHANGE', "LOW_POWER"), new Command('MOVE', 3)];
-    let testMessage = new Message("Mode changes", testCommand);
+    let testCommand = [new Command('MODE_CHANGE', "LOW_POWER")];
+    let testMessage = new Message("Change mode to low power.", testCommand);
     let testRover = new Rover(98382);
-    let checkReceiveMessage = testRover.receiveMessage(testMessage)
-    let completeObject = {
-      completed: true
-   }
 
     testRover.receiveMessage(testMessage);
 
@@ -58,34 +54,24 @@ describe("Rover class", function() {
   })
 
   it("responds with a false completed value when attempting to move in LOW_POWER mode", function () {
-    let testCommand = [new Command('MODE_CHANGE', "LOW_POWER"), new Command('MOVE', 3)];
-    let testMessage = new Message("Mode changes", testCommand);
+    let testCommand = [new Command('MODE_CHANGE', "LOW_POWER"), new Command('MOVE', 3), new Command("STATUS_CHECK")];
+    let testMessage = new Message("Change mode to low power, move rover, status check.", testCommand);
     let testRover = new Rover(98382);
     let checkReceiveMessage = testRover.receiveMessage(testMessage)
-    let completeObject = {
-      completed: true
-   }
-
-    testRover.receiveMessage(testMessage);
 
     expect(checkReceiveMessage.results[1].completed).toBe(false);
-    expect(testRover.position).toBe(98382);
+    expect(checkReceiveMessage.results[2].roverStatus.position).toBe(98382);
 
   })
 
   it("responds with the position for the move command", function () {
-    let testCommand = [new Command('MOVE', 3)];
-    let testMessage = new Message("Mode changes", testCommand);
+    let testCommand = [new Command('MOVE', 3), new Command("STATUS_CHECK")];
+    let testMessage = new Message("Move rover.", testCommand);
     let testRover = new Rover(98382);
-    let checkReceiveMessage = testRover.receiveMessage(testMessage)
-    let completeObject = {
-      completed: true
-   }
-
-    testRover.receiveMessage(testMessage);
+    let checkReceiveMessage = testRover.receiveMessage(testMessage);
 
     expect(checkReceiveMessage.results[0].completed).toBe(true);
-    expect(testRover.position).toBe(testCommand[0].value);
+    expect(checkReceiveMessage.results[1].roverStatus.position).toBe(testCommand[0].value);
 
   })
 
